@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph Phase1["📥 Ingestion Phase"]
+        PDF[PDF Document] --> Loader[Document Loader]
+        Loader --> Splitter[Text Splitter]
+        Splitter --> Chunks[Text Chunks]
+        Chunks --> Embeddings[Embeddings Model]
+        Embeddings --> VectorDB[(Vector Database)]
+    end
+
+    subgraph Phase2["💬 Query Phase"]
+        User[User Question] --> Retriever[Retriever]
+        VectorDB --> Retriever
+        Retriever --> RelevantChunks[Relevant Chunks]
+        RelevantChunks --> Prompt[Prompt + Context]
+        Prompt --> LLM[LLM]
+        LLM --> Answer[Grounded Answer]
+    end
